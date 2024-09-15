@@ -3,6 +3,8 @@
 
 This report will contain all the exploits/vulnerabilities I had found in the OWASP Juice Shop website. Each vulnerability solved will be explained in detail with the steps to reproduce the vulnerability and solutions to fix the vulnerability.
 
+### The codebase is available at [GitHub](https://github.com/Harshavardhan-Pandurangan/Assignment-3)
+
 ## Vulnerabilities and Fixes
 
 ### 1. DOM XSS (Cross-Site Scripting)
@@ -233,3 +235,25 @@ rating: {
 ```
 The above code will check if the rating value is 0 and set it to 1 if it is. This will prevent the rating value from being set to 0. This is my personal preference and can be handled in multiple ways, like returning an error message if the rating is 0.
 
+### 9. Exposed Metrics (Sensitive Data Exposure)
+The vulnerability is found in the `/metrics` path of the website. The `/metrics` path is exposed and can be accessed by anyone. The `/metrics` path contains sensitive information about the server and the application. This can be exploited by an attacker to get information about the server and the application.
+
+#### Fix
+To fix this issue, the `/metrics` path should be restricted to only authenticated users. The `/metrics` path should not be exposed to the public. The `/metrics` path is the default path for the Prometheus metrics. The `/metrics` path should be disabled or restricted to only authenticated users.
+<br>
+I know this is a very production/deployment specific issue, but it is still a vulnerability that can be exploited, if the server is not properly configured.
+
+### 10. Outdated Allowlist (Unvalidated Redirects)
+To search for any crypto related redirects (as the hint suggests), I tried to search for `crypto` in the search bar, which did not return any results. But I later searched for related words like `bitcoin` which gave me a redirect url. i replaced the current url extension with the redirect url and it redirected me to some bitcoin related website.
+
+#### Fix
+To fix this issue, the redirect URL should be validated before redirecting the user. The redirect URL should be checked against a whitelist of allowed URLs. Also, not to be allowed to redirect to any external URLs.
+Simple fix was removing the redirect URL from the source code, as it was not required for the application.
+
+### 11. Missing Encoding (Improper Input Validation)
+This issue can be found in the photo wall, where the first image cannot be rendered due to missing file path. on inspecting the element, the image source is found to have `#` as part of the path, which is not encoded properly. Any path must replace the `#` character with `%23` to properly encode the path.
+
+#### Fix
+To fix this issue, the path should be encoded properly before rendering it to the page. The path should be encoded to replace the `#` character with `%23` to properly encode the path. Any other special characters should also be encoded properly.
+<br>
+This was done by simply running a sanity check on the path and replacing all the special characters with their encoded values, similar to the 1st DOM XSS fix.
