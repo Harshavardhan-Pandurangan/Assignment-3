@@ -1,0 +1,14 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 2
+    },
+    "auditLog": "/Users/harshavardhan/Documents/SQE/Assign/Untitled/logs/.audit.json",
+    "files": [
+        {
+            "date": 1726408097335,
+            "name": "/Users/harshavardhan/Documents/SQE/Assign/Untitled/logs/access.log.2024-09-15",
+            "hash": "d2ba5ce73ad807a34753238186f51e52"
+        }
+    ]
+}
